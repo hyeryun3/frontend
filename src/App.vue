@@ -1,26 +1,53 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <LoginPage/>
+  <div>
+    <h3>{{ a }}</h3>
+    <h3>{{ b }}</h3>
+    
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import HelloWorld from './components/HelloWorld.vue'
+import LoginPage from './components/LoginPage.vue'
+import axios from 'axios'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    LoginPage
+  },
+  data(){
+    return {
+      a:'',
+      b:''
+    }
+  },
+  methods: {
+    aa(){
+      const url = '/api/aa'
+      axios.get(url).then((res) => {
+        console.log(res)  
+        this.a = res.data.id
+        this.b = res.data.pw     
+      }).catch((err)=>{
+        console.log(err)
+      })
+    },
+    home(){
+      const url = '/api/home'
+      axios.get(url).then((res) => {
+        console.log(res)
+      })
+    }
+  },
+  mounted(){
+    this.aa()
+    this.home()
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
