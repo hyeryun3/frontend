@@ -1,15 +1,15 @@
 <template>
-  <LoginPage/>
+  <JoinPage/>
 </template>
 
 <script>
-import LoginPage from './components/LoginPage.vue'
+import JoinPage from './components/JoinPage.vue'
 import axios from 'axios'
 
 export default {
   name: 'App',
   components: {
-    LoginPage
+    JoinPage
   },
   methods: {
     home(){
