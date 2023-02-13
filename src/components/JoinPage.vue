@@ -1,7 +1,10 @@
 <template>
+  <div>
+    JoinPage <button href="javascript:;" @click.prevent="home">홈</button>
+  </div>
     <div class="content">
-        <span>이름</span> <input type="text" size="10" maxlength="10" id="name" ref="name" v-model="name" /><br/>
-        <span>이메일</span> <input type="text" size="10" maxlength="10" ref="email" v-model="email" id="email"/> @ 
+        <span>이름</span> <input type="text" size="10" id="name" ref="name" v-model="name" /><br/>
+        <span>이메일</span> <input type="text" size="10" ref="email" v-model="email" id="email"/> @ 
         <select @change="mailSelect($event)" ref="opt" id="opt">
           <option :key="i" :value="d.value" v-for="(d,i) in options">{{  d.text  }}</option>
         </select>
@@ -28,10 +31,6 @@ export default {
   name: 'JoinPage',
   data() {
     return{
-      name:'',
-      pw:'',
-      email:'',
-      email2:'',
       options: [
         {value: "-", text: "선택하기"},
         {value: "naver.com", text: "naver.com"},
@@ -43,6 +42,9 @@ export default {
     }
   },
   methods: {
+    home(){
+      location.href="/"
+    },
     check(){
       if(!this.name){
         alert('이름을 입력하세요')
@@ -89,6 +91,7 @@ export default {
         console.log('join() 성공')
         this.name = res.data.name
         this.pw = res.data.password
+        location.href="/Login"
       }).catch((err)=>{
         console.log('join() 실패')
         console.log(err)
@@ -130,6 +133,7 @@ export default {
         console.log("인증OK")
         mailChecking=true
         document.getElementById('email').setAttribute('disabled','true')
+        document.getElementById('email2').setAttribute('disabled','true')
         document.getElementById('opt').setAttribute('disabled','true')
         document.getElementById('authCheck').setAttribute('style','display:none')
         document.getElementById('mailAuthBtn').setAttribute('style','display:none')
