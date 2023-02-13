@@ -81,6 +81,7 @@ export default {
         document.getElementById('pw').value=''
         document.getElementById('pw2').value=''
         this.$refs.password.focus()
+        return
       }
       axios.post('/api/join',{
         name: this.name,

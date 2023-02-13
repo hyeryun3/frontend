@@ -3,11 +3,10 @@ import App from './App.vue'
 
 import routers from './router'  // router import
 
-// createApp(App).mount('#app')
-// createApp(App).use(router)
+createApp(App).use(routers).mount('#app')
 
-// 위 createApp 코드 아래처럼 변경
-const app = createApp(App)
-app.use(routers)  // router 추가
-app.mount('#app')
+// 위와 같은 코드
+// const app = createApp(App)
+// app.use(routers)
+// app.mount('#app')
 
