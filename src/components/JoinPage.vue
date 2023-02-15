@@ -111,22 +111,31 @@ export default {
     },
     mailAuth(){
       if(this.email && this.email2){
-        axios.post('/api/checkEmail',{
+        axios.post('/api/mailCheck',{
           email: this.email,
           email2: this.email2
-        }).then((res) => {
-          console.log('인증번호 발송')
-          console.log(res)
-          console.log('인증번호',res.data)
-          authNo = res.data
-          console.log(authNo)
-        }).catch((err)=>{
-          console.log('인증번호 발송 실패')
-          console.log(err)
+        }).then((res)=> {
+          if(res.data == "O"){
+            alert("존재하는 계정입니다.")
+            return
+          }else{
+            axios.post('/api/checkEmail',{
+              email: this.email,
+              email2: this.email2
+            }).then((res) => {
+              console.log('인증번호 발송', res.data)
+              authNo = res.data
+            }).catch((err)=>{
+              console.log('인증번호 발송 실패')
+              console.log(err)
+            })
+            document.getElementById('mailAuth').setAttribute('style','display:show')
+            document.getElementById('authCheck').setAttribute('style','display:show')
+            document.getElementById('mailAuth').value = ''
+
+          }
         })
-        document.getElementById('mailAuth').setAttribute('style','display:show')
-        document.getElementById('authCheck').setAttribute('style','display:show')
-        document.getElementById('mailAuth').value = ''
+
       }
     },
     authCheck(){
