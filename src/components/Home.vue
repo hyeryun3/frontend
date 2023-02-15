@@ -8,7 +8,6 @@
   </div>
 </template>
 <script>
-
 export default {
   name: 'HomePage',
   methods: {
@@ -17,7 +16,7 @@ export default {
     },
     join(){
       location.href="/join"
-    }
-  }
+    },
+  },
 };
 </script>

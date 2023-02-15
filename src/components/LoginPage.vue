@@ -22,12 +22,12 @@ export default {
           email: this.id,
           password: this.password,
         }).then((res)=>{
-          if(res.data == 'success'){
+          if(res.data == 'SUCCESS'){
             console.log('login() 성공',res)
             location.href="/"
           }else{
             console.log('계정 틀림',res)
-            location.reload();
+            alert("계정이 존재하지 않습니다.")
           }
         }).catch((err)=>{
           console.log('login() 실패',err)
