@@ -12,26 +12,36 @@
 </template>
 <script>
 import axios from 'axios'
+import store from "@/store"
 
 export default {
   name: 'LoginPage',
   methods: {
     login(){
       if(this.id && this.password){
-        axios.post('/api/login',{
-          email: this.id,
-          password: this.password,
-        }).then((res)=>{
-          if(res.data == 'SUCCESS'){
-            console.log('login() 성공',res)
-            location.href="/"
-          }else{
-            console.log('계정 틀림',res)
-            alert("계정이 존재하지 않습니다.")
-          }
-        }).catch((err)=>{
-          console.log('login() 실패',err)
-        })
+        try{
+          const token = 'token이다';
+          // this.$store.dispatch('setToken',token)
+          store.dispatch('setToken',token).then(()=>{
+            axios.post('/api/login',{
+              email: this.id,
+              password: this.password,
+            }).then((res)=>{
+              if(res.data == 'SUCCESS'){
+                console.log('login() 성공',res)
+                location.href="/"
+              }else{
+                console.log('계정 틀림',res)
+                alert("계정이 존재하지 않습니다.")
+              }
+            }).catch((err)=>{
+              console.log('login() 실패',err)
+            })
+          })
+        }catch(error){
+          console.log('로그인 토큰 실패', error)
+        }
+       
       }
     },
     home(){
