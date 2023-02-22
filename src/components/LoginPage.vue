@@ -8,45 +8,34 @@
   </div>
   <div>
     <button href="javascript:;" @click.prevent="login">로그인</button>
+    {{ this.$store.state.token }}
   </div>
 </template>
 <script>
-import axios from 'axios'
-import store from "@/store"
+// import store from "@/store"
+// import router from '@/router';
 
 export default {
   name: 'LoginPage',
+  data(){
+    return{
+      id: this.id,
+      password: this.password,
+    }
+  },
   methods: {
     login(){
       if(this.id && this.password){
-        try{
-          const token = 'token이다';
-          // this.$store.dispatch('setToken',token)
-          store.dispatch('setToken',token).then(()=>{
-            axios.post('/api/login',{
-              email: this.id,
-              password: this.password,
-            }).then((res)=>{
-              if(res.data == 'SUCCESS'){
-                console.log('login() 성공',res)
-                location.href="/"
-              }else{
-                console.log('계정 틀림',res)
-                alert("계정이 존재하지 않습니다.")
-              }
-            }).catch((err)=>{
-              console.log('login() 실패',err)
-            })
-          })
-        }catch(error){
-          console.log('로그인 토큰 실패', error)
-        }
-       
+        this.$store.dispatch('getToken',{
+          email: this.id,
+          password: this.password
+        }).then(()=>{console.log(this.$store.state.token )})
       }
     },
     home(){
       location.href="/"
-    }
-  }
+    },
+  },
 };
+
 </script>

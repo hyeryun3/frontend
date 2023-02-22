@@ -1,8 +1,16 @@
+import axios from 'axios';
 import Vuex from "vuex";
 
+
+const headers = {
+    'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    'Accept': '*/*',
+    'key': 'hyeryunsKeyMyKeyMyEncryptedKey=='
+}
 export default new Vuex.Store({
     state: {
         token: null,
+        // store.state.token으로 접근함.
     },
     getters: {
         isLogin(state){
@@ -11,19 +19,23 @@ export default new Vuex.Store({
     },
     mutations: {
         // commit으로 부름
-        setToken(state, _token){
-            state.token = _token;
+        SET_USER_DATA(state, data){
+            console.log('mutations', data)
+            state.token = data;
         }
     },
     actions: {
         // dispatch로 부름
-        setToken:({commit}, _token) => {
-            console.log(_token)
-            commit('setToken',_token);
 
+        getToken({commit}, credentials){
+            axios.defaults.headers.post=null
+            return axios
+            .get('/api/create/token',credentials, {headers})
+            .then(({data})=>{
+                console.log('data',data)
+                commit('SET_USER_DATA',data)
+            })
         }
-        
-
     }
 })
 
