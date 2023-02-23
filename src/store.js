@@ -5,7 +5,7 @@ import Vuex from "vuex";
 const headers = {
     'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
     'Accept': '*/*',
-    'key': 'hyeryunsKeyMyKeyMyEncryptedKey=='
+    'key': 'aHllcnl1bmh5ZXJ5dW5oeWVyeXVuMw=='
 }
 export default new Vuex.Store({
     state: {
@@ -26,11 +26,10 @@ export default new Vuex.Store({
     },
     actions: {
         // dispatch로 부름
-
         getToken({commit}, credentials){
             axios.defaults.headers.post=null
             return axios
-            .get('/api/create/token',credentials, {headers})
+            .post('/api/create/token',credentials, {headers})
             .then(({data})=>{
                 console.log('data',data)
                 commit('SET_USER_DATA',data)

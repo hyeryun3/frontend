@@ -8,12 +8,10 @@
   </div>
   <div>
     <button href="javascript:;" @click.prevent="login">로그인</button>
-    {{ this.$store.state.token }}
   </div>
 </template>
 <script>
-// import store from "@/store"
-// import router from '@/router';
+import axios from 'axios'
 
 export default {
   name: 'LoginPage',
@@ -26,10 +24,21 @@ export default {
   methods: {
     login(){
       if(this.id && this.password){
-        this.$store.dispatch('getToken',{
+        this.$axios.post('/api/login',{
           email: this.id,
           password: this.password
-        }).then(()=>{console.log(this.$store.state.token )})
+        }).then((res)=>{
+          res = res.data
+          if(res=='SUCCESS'){
+            alert('회원임')
+            store.dispatch('getToken',{
+              email: this.id,
+              password: this.password
+            }).then(()=>{console.log(this.$store.state.token )})
+          }else{
+            alert('회원아님')
+          }
+        })
       }
     },
     home(){
