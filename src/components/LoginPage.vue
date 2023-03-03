@@ -11,7 +11,6 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
 
 export default {
   name: 'LoginPage',
@@ -31,7 +30,7 @@ export default {
           res = res.data
           if(res=='SUCCESS'){
             alert('회원임')
-            store.dispatch('getToken',{
+            this.$store.dispatch('getToken',{
               email: this.id,
               password: this.password
             }).then(()=>{console.log(this.$store.state.token )})
