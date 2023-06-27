@@ -11,6 +11,7 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 
 export default {
   name: 'LoginPage',
@@ -23,7 +24,7 @@ export default {
   methods: {
     login(){
       if(this.id && this.password){
-        this.$axios.post('/api/login',{
+        axios.post('/api/login',{
           email: this.id,
           password: this.password
         }).then((res)=>{
@@ -33,7 +34,9 @@ export default {
             this.$store.dispatch('getToken',{
               email: this.id,
               password: this.password
-            }).then(()=>{console.log(this.$store.state.token )})
+            }).then(()=>{console.log(this.$store.state.token )
+              location.href="/"
+            })
           }else{
             alert('회원아님')
           }

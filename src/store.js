@@ -9,19 +9,21 @@ const headers = {
 }
 export default new Vuex.Store({
     state: {
-        token: null,
+        // token: null,
+        token: localStorage.getItem('user'),
         // store.state.token으로 접근함.
     },
     getters: {
         isLogin(state){
-            return state.token == null? false : true;
+            return state.token == null? true : false;
         }
     },
     mutations: {
         // commit으로 부름
         SET_USER_DATA(state, data){
-            console.log('mutations', data)
             state.token = data;
+            localStorage.setItem('user', JSON.stringify(data));
+            axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
         }
     },
     actions: {
